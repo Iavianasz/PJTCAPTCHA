@@ -6,10 +6,18 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Formulário</title>
+
+    <script>
+         function ValidatePost(){
+                if(grecaptcha.getResponse() != "") return true;
+                alert('Selecione a caixa de "Não sou um robô"')
+                return false;
+         }
+    </script>
 </head>
 <body>
 
-    <form action="php.php" method="post">
+    <form action="php.php" method="post" onsubmit=" return ValidatePost()">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome">
 
