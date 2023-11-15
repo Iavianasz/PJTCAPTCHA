@@ -7,7 +7,7 @@
             CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => [
-                'secret' => '6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT'
+                'secret' => '6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT',
                 'response' => $_POST['g-recaptcha-response'] ?? ''
             ]
         ]);
@@ -32,10 +32,6 @@
 
     }
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
