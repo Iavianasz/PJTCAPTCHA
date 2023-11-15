@@ -2,7 +2,7 @@
 // Verifique se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifique o reCAPTCHA
-    $recaptcha_secret_key = "6Le-9BApAAAAAPQJUB-ey5_TVfEcTfjPdpjQC2AA";
+    $recaptcha_secret_key = "6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT";
     $recaptcha_response = $_POST['g-recaptcha-response'];
 
     $url = 'https://www.google.com/recaptcha/api/siteverify';
