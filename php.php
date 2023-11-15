@@ -1,30 +1,36 @@
 <?php
-$recaptcha_secret = '6Le-9BApAAAAAPQJUB-ey5_TVfEcTfjPdpjQC2AA';
+// Verifique se o formulário foi enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifique o reCAPTCHA
+    $recaptcha_secret_key = "6Le-9BApAAAAAPQJUB-ey5_TVfEcTfjPdpjQC2AA";
+    $recaptcha_response = $_POST['g-recaptcha-response'];
 
-$recaptcha_response = $_POST['g-recaptcha-response'];
-$url = 'https://www.google.com/recaptcha/api/siteverify';
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $data = [
+        'secret' => $recaptcha_secret_key,
+        'response' => $recaptcha_response
+    ];
 
-$data = array(
-    'secret' => $recaptcha_secret,
-    'response' => $recaptcha_response
-);
+    $options = [
+        'http' => [
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
+            'content' => http_build_query($data)
+        ]
+    ];
 
-$options = array(
-    'http' => array (
-        'method' => 'POST',
-        'content' => http_build_query($data)
-    )
-);
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+    $result_json = json_decode($result, true);
 
-$context  = stream_context_create($options);
-$result = file_get_contents($url, false, $context);
-$response = json_decode($result, true);
-
-if ($response['success'] == true) {
-    echo("O recapcha foi verficado com sucesso")
-} 
-else {
-    // O reCAPTCHA falhou
-    echo("A verificação do recapcha falhou")
+    // Verifique se o reCAPTCHA foi validado
+    if ($result_json['success']) {
+        // Processar o restante do formulário aqui
+        echo "reCAPTCHA validado. Formulário processado com sucesso!";
+    } else {
+        echo "Falha na validação do reCAPTCHA.";
+    }
+} else {
+    echo "Erro: O formulário não foi submetido.";
 }
 ?>
