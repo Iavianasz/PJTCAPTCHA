@@ -1,6 +1,15 @@
 <?php
 // Verifique se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifique se o nome e o email foram preenchidos
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+
+    if (empty($nome) || empty($email)) {
+        echo "Erro: Nome e email são campos obrigatórios.";
+        exit;
+    }
+
     // Verifique o reCAPTCHA
     $recaptcha_secret_key = "6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT";
     $recaptcha_response = $_POST['g-recaptcha-response'];
