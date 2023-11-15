@@ -53,7 +53,7 @@
 </head>
 <body>
 
-    <form action="php.php" method="post" onsubmit=" return ValidatePost()">
+    <form method="post" onsubmit=" return ValidatePost()">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome">
 
