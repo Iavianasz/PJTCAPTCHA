@@ -21,10 +21,10 @@ $result = file_get_contents($url, false, $context);
 $response = json_decode($result, true);
 
 if ($response['success'] == true) {
-    // O reCAPTCHA foi verificado com sucesso
-    // Prossiga com o processamento do formulário
-} else {
+    printf("O recapcha foi verficado com sucesso")
+} 
+else {
     // O reCAPTCHA falhou
-    // Exiba uma mensagem de erro ou tome outras medidas apropriadas
+    printf("A verificação do recapcha falhou")
 }
 ?>
