@@ -10,9 +10,14 @@
 
     <script>
         function ValidatePost() {
-            if (grecaptcha.getResponse() != "") return true;
-            alert('Selecione a caixa de "Não sou um robô"')
-            return false;
+            var response = grecaptcha.getResponse();
+    
+            if (response && response.length > 0) {
+                return true;
+            } else {
+                alert('Selecione a caixa de "Não sou um robô"');
+                return false;
+            }
         }
     </script>
 </head>
