@@ -1,34 +1,38 @@
 <?php
+// Get your reCAPTCHA secret key from https://www.google.com/recaptcha
+$recaptchaSecretKey = '6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT';
 
-    if($_POST){
+// Get the client's response token from the POST request
+$recaptchaResponse = $_POST['g-recaptcha-response'];
 
-        //curl
-        $curl = curl_init();
-        
-        //definiões da requisição com curl
-        curl_setopt_array($curl, [
-            CURLOPT_URL => ' https://www.google.com/recaptcha/api/siteverify',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => [
-                'secret' => '6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT',
-                'response' => $_POST['g-recaptcha-response'] ?? ''
-            ]
-        ]);
+// Check if the reCAPTCHA response is set
+if (empty($recaptchaResponse)) {
+    echo json_encode(['success' => false, 'message' => 'reCAPTCHA response is empty']);
+    exit;
+}
 
-        //Executa a requisição
-        $response = curl_exec($curl);
+// Verify reCAPTCHA response
+$verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+$verifyData = [
+    'secret'   => $recaptchaSecretKey,
+    'response' => $recaptchaResponse,
+];
 
-        //Fecha a execução Curl
-        curl_close($curl);
+$ch = curl_init($verifyUrl);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($verifyData));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
 
-        //Response em array
-        $responseArray = json_decode($response,true);
+// Decode and check the response from Google
+$result = json_decode($response, true);
 
-        //Sucesso do recaptcha
-        $sucesso = $responseArray['succes'] ?? false;
-
-        //retorno para usuário
-        echo $sucesso ? "Usuário cadastrado com sucesso!" : "ReCaptcha inválido";
-    }
+if ($result['success']) {
+    // The reCAPTCHA verification was successful
+    echo json_encode(['success' => true, 'message' => 'reCAPTCHA verification successful']);
+} else {
+    // The reCAPTCHA verification failed
+    echo json_encode(['success' => false, 'message' => 'reCAPTCHA verification failed']);
+}
 ?>
