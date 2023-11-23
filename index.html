@@ -1,7 +1,6 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-BR" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,16 +9,17 @@
     <title>Formulário</title>
 
     <script>
-         function ValidatePost(){
-                if(grecaptcha.getResponse() != "") return true;
-                alert('Selecione a caixa de "Não sou um robô"')
-                return false;
-         }
+        function ValidatePost() {
+            if (grecaptcha.getResponse() != "") return true;
+            alert('Selecione a caixa de "Não sou um robô"')
+            return false;
+        }
     </script>
 </head>
+
 <body>
 
-    <form action="/captcha/captcha.php" method="post" onsubmit=" return ValidatePost()">
+    <form  method="post" onsubmit=" return ValidatePost()">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
 
@@ -28,8 +28,9 @@
 
         <div class="g-recaptcha" data-sitekey="6LdC_BApAAAAANBFoaT6G8wRx843YPMZCEF2teqs" required></div>
 
-        <button type="submit">Enviar</button>
+        <button action="/captcha/captcha.php" type="submit">Enviar</button>
     </form>
 
 </body>
+
 </html>
