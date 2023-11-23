@@ -6,10 +6,10 @@
             CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => [
+            CURLOPT_POSTFIELDS => http_build_query ([
                 'secret' => '6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT',
                 'response' => $_POST['g-recaptcha-response'] ?? ''
-            ]
+            ])
         ]);
 
 
