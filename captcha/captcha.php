@@ -12,7 +12,7 @@
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => [
                 'secret' => '6LdC_BApAAAAAMcjXaupF9TBl_49IH_TwQggWLgT',
-                'response' => $_POST['g-recaptch-response'] ?? ''
+                'response' => $_POST['g-recaptcha-response'] ?? ''
             ]
             ]);
 
